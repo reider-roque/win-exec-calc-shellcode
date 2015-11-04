@@ -18,13 +18,21 @@ You can also combine FUNC (and CLEAN) and STACK_ALIGN to produce code that will 
 If you want to create a DLL-file that executes the shellcode, you can compile win-dll-run-shellcode.c
 If you want to create an executable that executes the shellcode, you can compile win-exe-run-shellcode.c
 
-x86-bit example:
-nasm -f win32 -DFUNC=TRUE w32-exec-calc-shellcode.asm
-cl.exe win-exe-run-shellcode.c /link /entry:main /subsystem:windows w32-exec-calc-shellcode.obj
+x86-bit exe build example:
+    nasm -f win32 -DFUNC=TRUE w32-exec-calc-shellcode.asm
+then
+    cl.exe win-exe-run-shellcode.c /link /entry:main /subsystem:windows w32-exec-calc-shellcode.obj
+or
+    link /entry:shellcode /subsystem:windows w32-exec-calc-shellcode.obj
 
-x64-bit example:
-nasm -f win64 -DFUNC=TRUE w64-exec-calc-shellcode.asm
-"C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\cl.exe" win-exe-run-shellcode.c /link /entry:main /subsystem:windows w64-exec-calc-shellcode.obj
+x64-bit exe build example:
+    nasm -f win64 -DFUNC=TRUE w64-exec-calc-shellcode.asm
+then
+    "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\cl.exe" win-exe-run-shellcode.c /link /entry:main \
+    /subsystem:windows w64-exec-calc-shellcode.obj
+or
+    "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64\link.exe" /entry:shellcode /subsystem:windows \
+    w64-exec-calc-shellcode.obj
 
 Release versions are build using SkyBuild (https://code.google.com/p/skybuild/), which is a python script that uses
 nasm to assemble and Microsoft Visual Studio to compile the source into binary formats. It reads
